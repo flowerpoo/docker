@@ -49,72 +49,79 @@ Solution:
 sudo apt-get update
 sudo apt-get install docker.io -y
 ```
-# start docker 
+start docker 
+```
 sudo systemctl start docker
-# Test docker installation 
+```
+Test docker installation 
+```
 sudo docker run hello-world
-# enable docker if its not
+```
+ enable docker if its not
+ ```
 sudo systemctl enable docker
-# Add the ec2-user (ubuntu) to the docker group so that you can run Docker commands without using sudo.
+```
+Add the ec2-user (ubuntu) to the docker group so that you can run Docker commands without using sudo.
+```
 sudo usermod -a -G docker ubuntu
-# restart the service
-# Verify that the ec2-user can run Docker commands without using sudo.
+```
+restart the service
+Verify that the ec2-user can run Docker commands without using sudo.
+```
 docker ps
-# you will got the output listed below
-CONTAINER ID    IMAGE         COMMAND         CREATED             STATUS              PORTS               NAMES
-
-
+```
+# Docker build and run 
 * Build docker image go to the respective folder where dockerfile is located and execute the command mentioned below
-'''
+```
 docker image build -t <image>
-'''
+```
 ![alt text](image.png)
 * Run the docker container 
-'''
+```
 docker run -d --name <name> -p <Host port>:<Container port> <image>
-'''
+```
 ![alt text](image-1.png)
 * Next navigate to the browser to see the outcome
-'''
+```
 http://local_host:80
-'''
+```
 ![alt text](output.PNG)
 
-* Save container data to AWS Elastic Container Registry (ECR)
+# Save container data to AWS Elastic Container Registry (ECR)
 
-To send our container data to ECR, we have to create a reposirory 
-'''
+To send our container data to ECR, we have to create a repository 
+```
 aws ecr create-repository --repository-name <name> --region <region>
-'''
+```
 ![alt text](image-2.png)
 
 We’ll confirm it has been created by navigating to the Amazon Elastic Container Repository in the AWS console
 
 ![alt text](docker_poo_ECR_repo_created.PNG)
 
-TO push into ECR, we need to authenticate the docker client to the registory, run the command to procede authentication 
-'''
+TO push into ECR, we need to authenticate the docker client to the registry, run the command to proceed with authentication 
+```
 aws ecr get-login-password --region <region> | docker login --username <AWS> --password-stdin <aws_account_id.dkr.ecr.region.amazonaws.com>
-'''
+```
 ![alt text](image-3.png)
 
 Now we will tag the image using the Amazon ECR registry repository
-'''
+```
 docker tag  image <e9ae3c220b23 aws_account_id.dkr.ecr.region.amazonaws.com / my-repository:tag>
-'''
+```
 
 ![alt text](image-4.png)
 
 We are ready to push the image to the registry repository
-'''
+```
 docker push aws_account_id.dkr.ecr.region.amazonaws.com/my-repository:tag
-'''
+```
 ![alt text](image-5.png)
 
-Navigating to AWS console to confirm its there
+Navigating to the AWS console to confirm it is there
 
 ![alt text](Image_pushed_to_ECR_successfully.PNG)
 
-We all done created the html file, docker file with nginx congiguration, build and run the docker file, created a new ECR repository and pushed out docker container to the repository.
+We all created the HTML file, docker file with nginx configuration, built and run the docker file, created a new ECR repository, and pushed out the docker container to the repository.
 
 Happy Learning!!!!
