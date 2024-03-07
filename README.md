@@ -44,11 +44,11 @@ Solution:
 * Created a IAM role with ECR full access.
 * Launch EC2 instance with ubuntu OS, Key pair, Securoty group with allows port 8080, added IAM role into the EC2 instance.
 * clone the repository to the instance,
-* Install docker into EC2 instance with following commands.
-'''
+* Install docker into EC2 instance with following commands. 
+```
 sudo apt-get update
-# install docker 
 sudo apt-get install docker.io -y
+```
 # start docker 
 sudo systemctl start docker
 # Test docker installation 
@@ -62,7 +62,7 @@ sudo usermod -a -G docker ubuntu
 docker ps
 # you will got the output listed below
 CONTAINER ID    IMAGE         COMMAND         CREATED             STATUS              PORTS               NAMES
-'''
+
 
 * Build docker image go to the respective folder where dockerfile is located and execute the command mentioned below
 '''
